@@ -12,7 +12,6 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddPaaS(configuration);
 builder.Services.AddPOM(configuration);
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
