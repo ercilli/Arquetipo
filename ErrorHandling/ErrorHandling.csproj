@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Abstracts\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Middlewares\" />
+    <None Remove="Exceptions\" />
+    <None Remove="Services\" />
+    <None Remove="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Abstracts\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Services\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ErrorHandling.Models\ErrorHandling.Models.csproj" />
+  </ItemGroup>
+</Project>
