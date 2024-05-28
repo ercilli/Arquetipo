@@ -29,3 +29,7 @@ Api.Example.A/Properties/launchSettings.json
 Api.Example.A/appsettings.json
 Api.Example.A/appsettings.Development.json
 .DS_Store
+ResponseGenerator.Models/bin
+ResponseGenerator.Models/obj
+ResponseGenerator/bin
+ResponseGenerator/obj

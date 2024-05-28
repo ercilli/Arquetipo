@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Text.Json;
 using ErrorHandling.Interfaces;
-using ErrorHandling.Models.ErrorHandlingModels;
 using Microsoft.AspNetCore.Http;
+using ResponseGenerator.Models.ResponseGeneratorModels;
 
 namespace ErrorHandling.Abstracts
 {

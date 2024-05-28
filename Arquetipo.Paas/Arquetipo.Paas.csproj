@@ -25,5 +25,6 @@
     <ProjectReference Include="..\ErrorHandling\ErrorHandling.csproj" />
     <ProjectReference Include="..\Logging.Interceptor\Logging.Interceptor.csproj" />
     <ProjectReference Include="..\Tracing.Configuration\Tracing.Configuration.csproj" />
+    <ProjectReference Include="..\ResponseGenerator\ResponseGenerator.csproj" />
   </ItemGroup>
 </Project>

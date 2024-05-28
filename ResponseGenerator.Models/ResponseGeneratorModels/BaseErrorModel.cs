@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ErrorHandling.Models.ErrorHandlingModels
+namespace ResponseGenerator.Models.ResponseGeneratorModels
 {
     public class BaseErrorModel
     {

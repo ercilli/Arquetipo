@@ -7,14 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Middlewares\" />
+    <None Remove="Abstracts\" />
     <None Remove="Extensions\" />
-    <None Remove="ErrorHandlingModels\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Middlewares\" />
+    <Folder Include="Abstracts\" />
     <Folder Include="Extensions\" />
-    <Folder Include="ErrorHandlingModels\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ResponseGenerator.Models\ResponseGenerator.Models.csproj" />
   </ItemGroup>
 </Project>

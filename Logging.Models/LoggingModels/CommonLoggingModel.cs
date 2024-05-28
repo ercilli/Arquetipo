@@ -27,7 +27,6 @@ namespace Logging.Models.LoggingModels
         public CommonLoggingModel()
         {
             LogType = ThreadName = StackTrace = BuildVersion = BuildParentVersion = IdChannel = LoggingTrackingId = Jwt = TraceId = SpanId = SpanParentId = HttpRequestAddress = HttpRequestQueryString = HttpRequestMethod = HttpRequestPath = HttpRequestRemoteAddress = "-";
-            Console.WriteLine("Instancio CommonLoggingModel");
         }
 
         public virtual Dictionary<string, object> ToDictionary()

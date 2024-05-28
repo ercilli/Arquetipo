@@ -28,29 +28,6 @@ app.UseAuthorization();
 
 app.UsePOM();
 
-//var middlewareRegistry = new MiddlewareRegistry();
-//// Registro de middlewares base
-//middlewareRegistry.RegisterBaseMiddleware(typeof(RequestInspectionMiddleware));
-//middlewareRegistry.RegisterBaseMiddleware(typeof(RequestLoggerMiddleware));
-//middlewareRegistry.RegisterBaseMiddleware(typeof(ResponseLoggerMiddleware));
-//middlewareRegistry.RegisterBaseMiddleware(typeof(ResponseInspectionMiddleware));
-//// ...otros middlewares base...
-
-//middlewareRegistry.RegisterMiddlewareAtPosition(typeof(MiddlewarePom), 0);
-
-//foreach (var middlewareType in middlewareRegistry.GetOrderedMiddlewareTypes())
-//{
-//    app.UseMiddleware(middlewareType);
-//}
-
-//app.UseMiddleware<RequestInspectionMiddleware>();
-
-//app.UseMiddleware<RequestLoggerMiddleware>();
-
-//app.UseMiddleware<ResponseLoggerMiddleware>();
-
-//app.UseMiddleware<ResponseInspectionMiddleware>();
-
 app.MapControllers();
 
 app.Run();

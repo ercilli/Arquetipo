@@ -27,6 +27,6 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ErrorHandling.Models\ErrorHandling.Models.csproj" />
+    <ProjectReference Include="..\ResponseGenerator.Models\ResponseGenerator.Models.csproj" />
   </ItemGroup>
 </Project>

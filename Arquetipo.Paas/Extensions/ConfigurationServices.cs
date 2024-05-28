@@ -4,6 +4,7 @@ using ErrorHandling.Extensions;
 using Logging.Interceptor.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ResponseGenerator.Extensions;
 
 namespace Arquetipo.Paas.Extensions
 {
@@ -15,6 +16,7 @@ namespace Arquetipo.Paas.Extensions
             services.AddSerilogServices(configuration);
             services.AddLoggingFilter();
             services.AddLoggingInterceptor();
+            services.AddResponseGenerator();
 
             return services;
         }

@@ -1,6 +1,6 @@
 ﻿using ErrorHandling.Abstracts;
-using ErrorHandling.Models.ErrorHandlingModels;
 using Microsoft.AspNetCore.Http;
+using ResponseGenerator.Models.ResponseGeneratorModels;
 
 namespace ErrorHandling.Services
 {
