@@ -7,6 +7,8 @@ namespace ResponseGenerator.Models.Extensions
 	{
         public static IServiceCollection AddResponseGeneratorModels(this IServiceCollection services)
         {
+            services.AddScoped<ResponseApi>();
+            services.AddScoped<Meta>();
             services.AddScoped<BaseErrorModel>();
 
             return services;

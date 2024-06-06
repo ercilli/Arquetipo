@@ -16,6 +16,8 @@ namespace Logging.Filter.Middlewares
 
         public async Task InvokeAsync(HttpContext context, IResponseInspection _inspect)
         {
+            Console.WriteLine("Ingreso al middleware ResponseInspection");
+
             // Captura el flujo original
             var originalBodyStream = context.Response.Body;
 
@@ -37,8 +39,13 @@ namespace Logging.Filter.Middlewares
 
                 // Vuelve a escribir el cuerpo de la respuesta al flujo original
                 responseBody.Seek(0, SeekOrigin.Begin);
+
+                Console.WriteLine("Salgo del middleware ResponseInspection");
+
                 await responseBody.CopyToAsync(originalBodyStream);
             }
+
+
         }
     }
 }

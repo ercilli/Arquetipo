@@ -18,10 +18,11 @@ namespace Logging.Filter.Pom
 
         public async Task InvokeAsync(HttpContext context, IRequestInspection _inspect)
         {
-            _logger.LogInformation("Log POM Request");
+            _logger.LogInformation("Ingreso al middleware Filter POM");
+            Console.WriteLine("Ingreso al middleware Filter POM");
             await _next(context);
-            _logger.LogInformation("Log POM Response");
-
+            _logger.LogInformation("Salgo del middleware Filter POM");
+            Console.WriteLine("Salgo del middleware Filter POM");
         }
     }
 }

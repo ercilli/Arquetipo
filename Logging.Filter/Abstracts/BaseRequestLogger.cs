@@ -1,9 +1,8 @@
-﻿using System;
-using Logging.Filter.Interfaces;
+﻿using Logging.Filter.Interfaces;
 using Logging.Models.LoggingModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Serilog.AspNetCore;
+
 
 namespace Logging.Filter.Abstracts
 {

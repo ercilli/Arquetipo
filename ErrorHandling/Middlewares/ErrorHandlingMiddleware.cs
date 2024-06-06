@@ -18,11 +18,19 @@ namespace ErrorHandling.Middleware
         {
             try
             {
+                Console.WriteLine("Ingreso al middleware ErrorHandling");
+
                 await _next(context);
+
+                Console.WriteLine("Salgo del middleware ErrorHandling");
             }
             catch (Exception ex)
             {
+                Console.WriteLine("EXCEPTION: Ingreso al middleware ErrorHandling");
+
                 await _exceptionHandler.HandleExceptionAsync(ex, context);
+
+                Console.WriteLine("EXCEPTION: Salgo del middleware ErrorHandling");
             }
         }
     }

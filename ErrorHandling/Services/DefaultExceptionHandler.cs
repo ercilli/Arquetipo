@@ -6,16 +6,21 @@ namespace ErrorHandling.Services
 {
     public class DefaultExceptionHandler : BaseExceptionHandler
     {
-        private readonly BaseErrorModel _model;
+        private readonly ResponseApi _model;
 
-        public DefaultExceptionHandler(BaseErrorModel model) : base(model)
+        public DefaultExceptionHandler(ResponseApi model) : base(model)
         {
             _model = model;
         }
 
-        protected override async Task<BaseErrorModel> AdditionalInfoAsync(Exception ex, HttpContext httpContext)
+        protected override void FillErrorAditional(Exception ex, HttpContext httpContext)
         {
-            return _model;
+            
+        }
+
+        protected override async Task FillErrorAditionalAsync(Exception ex, HttpContext httpContext)
+        {
+            await Task.CompletedTask;
         }
     }
 }

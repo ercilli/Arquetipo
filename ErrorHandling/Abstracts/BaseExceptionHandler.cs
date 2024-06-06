@@ -8,9 +8,9 @@ namespace ErrorHandling.Abstracts
 {
     public abstract class BaseExceptionHandler : IExceptionHandler
     {
-        private readonly BaseErrorModel _model;
+        private readonly ResponseApi _model;
 
-        protected BaseExceptionHandler(BaseErrorModel model)
+        protected BaseExceptionHandler(ResponseApi model)
         {
             _model = model;
         }
@@ -18,24 +18,23 @@ namespace ErrorHandling.Abstracts
         public async Task HandleExceptionAsync(Exception exception, HttpContext context)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError; // Modificar según la lógica
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError; 
+
+            FillErrorAditional(exception, context);
 
             FillError(exception, context);
 
-            var errorModel = await AdditionalInfoAsync(exception, context);
-
-            var response = JsonSerializer.Serialize(errorModel);
-
-            await context.Response.WriteAsync(response);
         }
 
         private void FillError(Exception ex, HttpContext context)
         {
-            _model.status_code = context.Response.StatusCode.ToString();
-            _model.code = "paas-0123";
+            _model.Errors.code = context.Response.StatusCode.ToString();
+            _model.Errors.data = "Parte del PaaS";
         }
 
-        protected abstract Task<BaseErrorModel> AdditionalInfoAsync(Exception ex, HttpContext httpContext);
+        protected abstract void FillErrorAditional(Exception ex, HttpContext httpContext);
+
+        protected abstract Task FillErrorAditionalAsync(Exception ex, HttpContext httpContext);
     }
 }
 

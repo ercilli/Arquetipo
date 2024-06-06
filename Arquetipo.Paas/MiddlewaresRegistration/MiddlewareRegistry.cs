@@ -1,6 +1,7 @@
 ﻿using Arquetipo.Paas.Enums;
 using ErrorHandling.Middleware;
 using Logging.Filter.Middlewares;
+using ResponseGenerator.Middlewares;
 
 namespace Arquetipo.Paas.MiddlewareRegistration;
 
@@ -65,6 +66,7 @@ public class MiddlewareRegistry
                 BaseMiddleware.RequestLogger => typeof(RequestLoggerMiddleware),
                 BaseMiddleware.ResponseLogger => typeof(ResponseLoggerMiddleware),
                 BaseMiddleware.ErrorHandling => typeof(ErrorHandlingMiddleware),
+                BaseMiddleware.ResponseGenerator => typeof(ResponseGeneratorMiddleware),
                 BaseMiddleware.ResponseInspection => typeof(ResponseInspectionMiddleware),
                 _ => throw new ArgumentException("Unknown middleware")
             };
