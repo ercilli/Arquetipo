@@ -6,8 +6,8 @@ namespace Arquetipo.Paas.Enums
         RequestInspection,
         RequestLogger,
         ResponseLogger,
-        ErrorHandling,
         ResponseGenerator,
+        ErrorHandling,
         ResponseInspection
     }
 }

@@ -1,52 +1,49 @@
-﻿using System;
-using Logging.Filter.Interfaces;
-using Logging.Filter.Services;
+﻿using Logging.Filter.Interfaces;
 using Microsoft.AspNetCore.Http;
 
-namespace Logging.Filter.Middlewares
+public class ResponseInspectionMiddleware
 {
-	public class ResponseInspectionMiddleware
-	{
-        private readonly RequestDelegate _next;
+    private readonly RequestDelegate _next;
 
-        public ResponseInspectionMiddleware(RequestDelegate next)
+    public ResponseInspectionMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+
+    public async Task InvokeAsync(HttpContext context, IResponseInspection _inspect)
+    {
+        Console.WriteLine("Ingreso al middleware ResponseInspection");
+
+        var originalBodyStream = context.Response.Body;
+
+        using (var responseBody = new MemoryStream())
         {
-            _next = next;
-        }
+            context.Response.Body = responseBody;
 
-        public async Task InvokeAsync(HttpContext context, IResponseInspection _inspect)
-        {
-            Console.WriteLine("Ingreso al middleware ResponseInspection");
-
-            // Captura el flujo original
-            var originalBodyStream = context.Response.Body;
-
-            using (var responseBody = new MemoryStream())
+            try
             {
-                // Reemplaza el flujo de la respuesta
-                context.Response.Body = responseBody;
-
-                // Continúa con la cadena de middleware
                 await _next(context);
 
-                // Leer el cuerpo de la respuesta
-                responseBody.Seek(0, SeekOrigin.Begin);
+                context.Response.Body.Seek(0, SeekOrigin.Begin);
+                var body = await new StreamReader(context.Response.Body).ReadToEndAsync();
+                context.Response.Body.Seek(0, SeekOrigin.Begin);
 
-                var body = await new StreamReader(responseBody).ReadToEndAsync();
-
-                // Aquí es donde integrarías con tu clase RequestInspection para registrar la respuesta
                 await _inspect.ResponseExtractAsync(context, body);
-
-                // Vuelve a escribir el cuerpo de la respuesta al flujo original
-                responseBody.Seek(0, SeekOrigin.Begin);
-
-                Console.WriteLine("Salgo del middleware ResponseInspection");
 
                 await responseBody.CopyToAsync(originalBodyStream);
             }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones locales si es necesario
+                context.Response.Body = originalBodyStream;
+                throw; // Re-lanzar la excepción para que otros middlewares la manejen
+            }
+            finally
+            {
+                context.Response.Body = originalBodyStream;
+            }
 
-
+            Console.WriteLine("Salgo del middleware ResponseInspection");
         }
     }
 }
-

@@ -20,9 +20,9 @@ namespace ErrorHandling.Pom
             {
                 Console.WriteLine("Ingreso a PomDefaultExtensionHandler");
 
-                _model.Errors = new BaseErrorPomModel() { spects = "asda"};
+                _model.Errors = new BaseErrorPomModel() { spects = "esto es el errorHandling del pom"};
 
-                _model.Errors.description = "asdas";
+                _model.Errors.description = "Error del pom";
 
                 Console.WriteLine("Salgo de PomDefaultExtensionHandler");
 
