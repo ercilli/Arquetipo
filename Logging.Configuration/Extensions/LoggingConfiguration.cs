@@ -34,6 +34,7 @@ namespace Logging.Configuration.Extensions
                     {
                         AutoRegisterTemplate = true,
                         IndexFormat = indexFormat,
+                        InlineFields = true,
                         FailureCallback = e => Console.WriteLine("Unable to submit event " + e.MessageTemplate),
                         EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
                                            EmitEventFailureHandling.WriteToFailureSink |
