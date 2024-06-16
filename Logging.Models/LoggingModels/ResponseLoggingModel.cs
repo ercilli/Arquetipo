@@ -16,7 +16,7 @@ namespace Logging.Models.LoggingModels
             HttpDuration = HttpResponseStatusCode = HttpResponseStatusPhrase = HttpResponseBody = HttpResponseHeaders = "-";
 		}
 
-        public Dictionary<string, object> ToDictionary()
+        public override Dictionary<string, object> ToDictionary()
         {
             var dict = new Dictionary<string, object>
             {
@@ -33,8 +33,6 @@ namespace Logging.Models.LoggingModels
                 {"id_channel", IdChannel},
                 {"logging_tracking_id", LoggingTrackingId},
                 {"jwt", Jwt},
-                {"trace_id", TraceId},
-                {"span_id", SpanId},
                 {"span_parent_id", SpanParentId},
             };
             return dict;
