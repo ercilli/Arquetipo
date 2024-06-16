@@ -17,7 +17,7 @@ namespace Logging.Filter.Middlewares
         {
             Console.WriteLine("Ingreso al middleware RequestLogger");
             var httpcontext = context;
-            await _requestLogger.LogRequestAsync(context);
+            await _requestLogger.LogRequestAsync();
             await _next(context);
             Console.WriteLine("Salgo del middleware RequestLogger");
         }
