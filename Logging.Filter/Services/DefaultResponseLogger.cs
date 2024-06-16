@@ -8,7 +8,7 @@ namespace Logging.Filter.Services
 {
 	public class DefaultResponseLogger : BaseResponseLogger
 	{
-        public DefaultResponseLogger(ResponseLoggingModel model, ILogger<BaseResponseLogger> logger) : base(model, logger)
+        public DefaultResponseLogger(ResponseLoggingModel model, ILogger<BaseResponseLogger> logger, IHttpContextAccessor contextAccessor) : base(model, logger, contextAccessor)
         {
         }
 
