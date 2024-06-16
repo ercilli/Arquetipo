@@ -10,15 +10,18 @@ namespace Logging.Filter.Abstracts
 	{
         private readonly ResponseLoggingModel _model;
         private readonly ILogger<BaseResponseLogger> _logger;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        protected BaseResponseLogger(ResponseLoggingModel model, ILogger<BaseResponseLogger> logger)
+        protected BaseResponseLogger(ResponseLoggingModel model, ILogger<BaseResponseLogger> logger, IHttpContextAccessor contextAccessor)
         {
             _model = model;
             _logger = logger;
+            _contextAccessor = contextAccessor;
         }
 
-        public async Task LogResponseAsync(HttpContext context)
+        public async Task LogResponseAsync()
         {
+            var context = _contextAccessor.HttpContext;
             // Logueo de path, method, y URI aquí
             LogBasicResponseInfo();
 
@@ -32,7 +35,6 @@ namespace Logging.Filter.Abstracts
             {
                 _logger.LogInformation("Response Executed");
             }
-
         }
 
         protected abstract Task LogAdditionalInfoAsync(HttpContext context);
