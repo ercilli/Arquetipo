@@ -5,7 +5,7 @@ namespace Logging.Filter.Interfaces
 {
 	public interface IRequestInspection
 	{
-		Task RequestExtractAsync(HttpContext context);
+		Task RequestExtractAsync();
 	}
 }
 
