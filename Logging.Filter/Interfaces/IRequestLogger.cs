@@ -5,7 +5,7 @@ namespace Logging.Filter.Interfaces
 {
 	public interface IRequestLogger
 	{
-        Task LogRequestAsync(HttpContext context);
+        Task LogRequestAsync();
     }
 }
 
