@@ -20,14 +20,20 @@ namespace Logging.Configuration.Extensions
 
             services.AddLogging(builder =>
             {
+                var serviceProvider = services.BuildServiceProvider();
+
                 var loggerConfiguration = new LoggerConfiguration()
                     .Enrich.With(new PropertyFilterEnricher())
-                    .Enrich.With(new DefaultLogTypeEnricher())
+                    .Enrich.With(new DefaultLogTypeEnricherProvider(serviceProvider))
+                    .Enrich.With(new TraceIdEnricher())
                     .MinimumLevel.Information()
                     .MinimumLevel.Override("Microsoft.AspNetCore.Hosting.Diagnostics", LogEventLevel.Warning)
-                    .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
                     .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
-                    .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Warning)
+                    .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
+                    .MinimumLevel.Override("Microsoft.AspNetCore.Server.Kestrel", LogEventLevel.Warning)
+                    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                    .MinimumLevel.Override("System", LogEventLevel.Warning)
+
                     .WriteTo.Console(new JsonFormatter())
                     // Configura el sink de Elasticsearch
                     .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearchUri))
