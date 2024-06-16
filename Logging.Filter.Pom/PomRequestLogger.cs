@@ -10,8 +10,7 @@ public class PomRequestLogger : BaseRequestLogger
 {
     private readonly RequestLoggingModel _model;
 
-    public PomRequestLogger(RequestLoggingModel model, ILogger<BaseRequestLogger> logger)
-             : base(model, logger)
+    public PomRequestLogger(RequestLoggingModel model, ILogger<BaseRequestLogger> logger, IHttpContextAccessor contextAccessor) : base(model, logger, contextAccessor)
     {
         _model = model;
     }
