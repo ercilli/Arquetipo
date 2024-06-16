@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Extensions\" />
@@ -24,5 +25,8 @@
     <Folder Include="Extensions\" />
     <Folder Include="Enrichers\" />
     <Folder Include="Formatters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logging.Models\Logging.Models.csproj" />
   </ItemGroup>
 </Project>
