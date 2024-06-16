@@ -11,20 +11,24 @@ namespace Logging.Filter.Services
 	public class ResponseInspection : IResponseInspection
 	{
         private readonly ResponseLoggingModel _model;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public ResponseInspection(ResponseLoggingModel model)
+        public ResponseInspection(ResponseLoggingModel model, IHttpContextAccessor contextAccessor)
         {
             _model = model;
+            _contextAccessor = contextAccessor;
         }
 
-        public async Task ResponseExtractAsync(HttpContext context, string body)
+        public async Task ResponseExtractAsync(string body)
         {
+            var context = _contextAccessor.HttpContext;
+
             _model.LogType = "RESPONSE";
-            _model.HttpResponseStatusCode = $"{context.Response.StatusCode}";
+            _model.HttpResponseStatusCode = $"{context?.Response.StatusCode}";
             _model.HttpResponseStatusPhrase = $"{ReasonPhrases.GetReasonPhrase(context.Response.StatusCode)}";
             _model.HttpResponseBody = body;
             _model.HttpResponseHeaders = GetAllResponseHeaders(context);
-            
+            _model.HttpDuration = "-";
         }
 
         private string GetAllResponseHeaders(HttpContext context)
