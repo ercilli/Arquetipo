@@ -10,17 +10,19 @@ namespace Logging.Filter.Abstracts
     {
         private readonly RequestLoggingModel _model;
         private readonly ILogger<BaseRequestLogger> _logger;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        protected BaseRequestLogger(RequestLoggingModel model, ILogger<BaseRequestLogger> logger)
+        protected BaseRequestLogger(RequestLoggingModel model, ILogger<BaseRequestLogger> logger, IHttpContextAccessor contextAccessor)
         {
             _model = model;
             _logger = logger;
+            _contextAccessor = contextAccessor;
         }
 
-        public async Task LogRequestAsync(HttpContext context)
+        public async Task LogRequestAsync()
         {
             // Llama a un método abstracto que las clases derivadas pueden utilizar para agregar logueo adicional
-            var httpcontext = context;
+            var httpcontext = _contextAccessor.HttpContext;
 
             await LogAdditionalInfoAsync(httpcontext);
 
