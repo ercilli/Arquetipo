@@ -18,7 +18,7 @@ namespace Logging.Filter.Middlewares
         {
             Console.WriteLine("Ingreso al middleware RequestInspection");
             var httpcontext = context;
-            await _inspect.RequestExtractAsync(httpcontext);
+            await _inspect.RequestExtractAsync();
             await _next(context);
             Console.WriteLine("Salgo del middleware RequestInspection");
         }
