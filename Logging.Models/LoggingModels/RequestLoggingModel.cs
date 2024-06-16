@@ -34,8 +34,6 @@ namespace Logging.Models.LoggingModels
                 {"id_channel", IdChannel},
                 {"logging_tracking_id", LoggingTrackingId},
                 {"jwt", Jwt},
-                {"trace_id", TraceId},
-                {"span_id", SpanId},
                 {"span_parent_id", SpanParentId},
                 {"pruebapiloto", PruebaPiloto},
             };
