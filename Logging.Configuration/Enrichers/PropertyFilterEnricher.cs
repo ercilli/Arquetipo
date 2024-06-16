@@ -9,7 +9,7 @@ namespace Logging.Configuration.Enrichers
         void ILogEventEnricher.Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
             // Listado de propiedades a ocultar
-            var propertiesToHide = new[] { "TraceId", "SpanId", "RequestId", "SourceContext", "Properties", "ActionName", "RequestPath", "MessageTemplate" };
+            var propertiesToHide = new[] { "TraceId", "SpanId", "RequestId", "Properties", "ActionName", "RequestPath", "MessageTemplate" };
 
             foreach (var propName in propertiesToHide)
             {
