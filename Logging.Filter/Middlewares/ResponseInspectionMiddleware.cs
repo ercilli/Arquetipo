@@ -28,7 +28,7 @@ public class ResponseInspectionMiddleware
                 var body = await new StreamReader(context.Response.Body).ReadToEndAsync();
                 context.Response.Body.Seek(0, SeekOrigin.Begin);
 
-                await _inspect.ResponseExtractAsync(context, body);
+                await _inspect.ResponseExtractAsync(body);
 
                 await responseBody.CopyToAsync(originalBodyStream);
             }
