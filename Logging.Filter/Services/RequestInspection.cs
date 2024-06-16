@@ -11,14 +11,18 @@ namespace Logging.Filter.Services
     public class RequestInspection : IRequestInspection
     {
         private readonly RequestLoggingModel _model;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public RequestInspection(RequestLoggingModel model)
+        public RequestInspection(RequestLoggingModel model, IHttpContextAccessor contextAccessor)
         {
             _model = model;
+            _contextAccessor = contextAccessor;
         }
 
-        public async Task RequestExtractAsync(HttpContext context)
+        public async Task RequestExtractAsync()
         {
+            var context = _contextAccessor.HttpContext;
+
             _model.LogType = "REQUEST";
             _model.IdChannel = GetIdChannel(context);
             _model.HttpRequestAddress = $"{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}";
