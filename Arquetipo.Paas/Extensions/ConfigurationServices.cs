@@ -12,11 +12,14 @@ namespace Arquetipo.Paas.Extensions
 	{
         public static IServiceCollection AddPaaS(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddErrorHandling();
-            services.AddSerilogServices(configuration);
+            services.AddHttpContextAccessor();
+
             services.AddLoggingFilter();
+            services.AddErrorHandling();
             services.AddLoggingInterceptor();
             services.AddResponseGenerator();
+            services.AddSerilogServices(configuration);
+
 
             return services;
         }
