@@ -8,11 +8,9 @@ namespace Logging.Filter.Services
 {
     public class DefaultRequestLogger : BaseRequestLogger
     {
-        private readonly RequestLoggingModel _model;
-
-        public DefaultRequestLogger(RequestLoggingModel model, ILogger<BaseRequestLogger> logger) : base(model, logger)
+        public DefaultRequestLogger(RequestLoggingModel model, ILogger<BaseRequestLogger> logger, IHttpContextAccessor contextAccessor) : base(model, logger, contextAccessor)
         {
-            _model = model;
+
         }
 
         protected override async Task LogAdditionalInfoAsync(HttpContext context)
