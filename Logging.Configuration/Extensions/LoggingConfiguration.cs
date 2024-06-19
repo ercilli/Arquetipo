@@ -5,8 +5,8 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Logging;
-using Serilog.Formatting.Json;
-using Serilog.Sinks.Elasticsearch; // Asegúrate de tener este using para acceder a ElasticsearchSinkOptions
+using Serilog.Formatting.Elasticsearch;
+using Serilog.Sinks.Elasticsearch; 
 
 namespace Logging.Configuration.Extensions
 {
@@ -33,19 +33,17 @@ namespace Logging.Configuration.Extensions
                     .MinimumLevel.Override("Microsoft.AspNetCore.Server.Kestrel", LogEventLevel.Warning)
                     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                     .MinimumLevel.Override("System", LogEventLevel.Warning)
-
-                    .WriteTo.Console(new JsonFormatter())
-                    // Configura el sink de Elasticsearch
-                    .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearchUri))
+                    .WriteTo.Async(a => a.Console(new ElasticsearchJsonFormatter(inlineFields: true,renderMessage: false, renderMessageTemplate: false)), bufferSize: 10)
+                    .WriteTo.Async(a => a.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearchUri))
                     {
                         AutoRegisterTemplate = true,
                         IndexFormat = indexFormat,
                         InlineFields = true,
-                        FailureCallback = e => Console.WriteLine("Unable to submit event " + e.MessageTemplate),
+                        FailureCallback = (e, exception) => Console.WriteLine("Unable to submit event " + e.MessageTemplate),
                         EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
                                            EmitEventFailureHandling.WriteToFailureSink |
                                            EmitEventFailureHandling.RaiseCallback,
-                    });
+                    }));
 
                 var logger = loggerConfiguration.CreateLogger();
 
