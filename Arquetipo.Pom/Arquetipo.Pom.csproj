@@ -20,5 +20,6 @@
     <ProjectReference Include="..\Logging.Filter.Pom\Logging.Filter.Pom.csproj" />
     <ProjectReference Include="..\Logging.Interceptor.Pom\Logging.Interceptor.Pom.csproj" />
     <ProjectReference Include="..\ErrorHandling.Pom\ErrorHandling.Pom.csproj" />
+    <ProjectReference Include="..\Logging.Configuration.Pom\Logging.Configuration.Pom.csproj" />
   </ItemGroup>
 </Project>
