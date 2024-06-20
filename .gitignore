@@ -13,6 +13,8 @@ ErrorHandling.Pom/bin
 ErrorHandling.Pom/obj
 Logging.Configuration/bin
 Logging.Configuration/obj
+Logging.Configuration.Pom/bin
+Logging.Configuration.Pom/obj
 Logging.Filter/bin
 Logging.Filter/obj
 Logging.Filter.Pom/bin
