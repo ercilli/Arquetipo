@@ -6,7 +6,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Logging;
 using Serilog.Formatting.Elasticsearch;
-using Serilog.Sinks.Elasticsearch; 
+using Serilog.Sinks.Elasticsearch;
 
 namespace Logging.Configuration.Extensions
 {
@@ -14,13 +14,13 @@ namespace Logging.Configuration.Extensions
     {
         public static IServiceCollection AddSerilogServices(this IServiceCollection services, IConfiguration configuration)
         {
-            // Configura la URI de Elasticsearch y el formato del índice desde tu archivo de configuración (appsettings.json)
-            var elasticsearchUri = configuration["Elasticsearch:Uri"];
-            var indexFormat = configuration["Elasticsearch:IndexFormat"] ?? "mi-indice-logs-{0:yyyy.MM}";
-
-            services.AddLogging(builder =>
+            // Primero, registra la LoggerConfiguration
+            services.AddLogging(provider =>
             {
                 var serviceProvider = services.BuildServiceProvider();
+
+                var elasticsearchUri = configuration["ELASTICSEARCH:URI"];
+                var indexFormat = configuration["ELASTICSEARCH:INDEXFORMAT"] ?? "mi-indice-logs-{0:yyyy.MM}";
 
                 var loggerConfiguration = new LoggerConfiguration()
                     .Enrich.With(new PropertyFilterEnricher())
@@ -33,26 +33,123 @@ namespace Logging.Configuration.Extensions
                     .MinimumLevel.Override("Microsoft.AspNetCore.Server.Kestrel", LogEventLevel.Warning)
                     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                     .MinimumLevel.Override("System", LogEventLevel.Warning)
-                    .WriteTo.Async(a => a.Console(new ElasticsearchJsonFormatter(inlineFields: true,renderMessage: false, renderMessageTemplate: false)), bufferSize: 10)
-                    .WriteTo.Async(a => a.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearchUri))
+                    .WriteTo.Async(a => a.Console(
+                        new ElasticsearchJsonFormatter(
+                            inlineFields: true,
+                            renderMessage: false,
+                            renderMessageTemplate: false)),
+                            bufferSize: 10);
+
+                if (!string.IsNullOrEmpty(elasticsearchUri))
+                {
+                    loggerConfiguration.WriteTo.Async(a => a.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearchUri))
                     {
                         AutoRegisterTemplate = true,
-                        IndexFormat = indexFormat,
                         InlineFields = true,
-                        FailureCallback = (e, exception) => Console.WriteLine("Unable to submit event " + e.MessageTemplate),
-                        EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
-                                           EmitEventFailureHandling.WriteToFailureSink |
-                                           EmitEventFailureHandling.RaiseCallback,
+                        IndexFormat = indexFormat,
                     }));
+                }
 
                 var logger = loggerConfiguration.CreateLogger();
 
-                builder.Services.AddSingleton<ILoggerFactory>(
+                provider.Services.AddSingleton<ILoggerFactory>(
                     provider => new SerilogLoggerFactory(logger, dispose: false)
                 );
+
             });
 
             return services;
         }
+
+        public static IServiceCollection AddSerilogServices(this IServiceCollection services, IConfiguration configuration, LoggerConfiguration loggerConfiguration)
+        {
+            // Primero, registra la LoggerConfiguration
+            services.AddLogging(provider =>
+            {
+                var serviceProvider = services.BuildServiceProvider();
+
+                var elasticsearchUri = configuration["ELASTICSEARCH:URI"];
+                var indexFormat = configuration["ELASTICSEARCH:INDEXFORMAT"] ?? "mi-indice-logs-{0:yyyy.MM}";
+
+                loggerConfiguration
+                     .Enrich.With(new PropertyFilterEnricher())
+                     .Enrich.With(new DefaultLogTypeEnricherProvider(serviceProvider))
+                     .Enrich.With(new TraceIdEnricher())
+                     .MinimumLevel.Information()
+                     .MinimumLevel.Override("Microsoft.AspNetCore.Hosting.Diagnostics", LogEventLevel.Warning)
+                     .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                     .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
+                     .MinimumLevel.Override("Microsoft.AspNetCore.Server.Kestrel", LogEventLevel.Warning)
+                     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                     .MinimumLevel.Override("System", LogEventLevel.Warning)
+                     .WriteTo.Async(a => a.Console(
+                         new ElasticsearchJsonFormatter(
+                             inlineFields: true,
+                             renderMessage: false,
+                             renderMessageTemplate: false)),
+                             bufferSize: 10);
+
+                if (!string.IsNullOrEmpty(elasticsearchUri))
+                {
+                    loggerConfiguration.WriteTo.Async(a => a.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearchUri))
+                    {
+                        AutoRegisterTemplate = true,
+                        InlineFields = true,
+                        IndexFormat = indexFormat,
+                    }));
+                }
+
+                var logger = loggerConfiguration.CreateLogger();
+
+                provider.Services.AddSingleton<ILoggerFactory>(
+                    provider => new SerilogLoggerFactory(logger, dispose: false)
+                );
+
+            });
+
+            return services;
+        }
+
+        public static LoggerConfiguration AddSerilogServicesBases(this IServiceCollection services, IConfiguration configuration, LoggerConfiguration loggerConfiguration)
+        {
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            var elasticsearchUri = configuration["ELASTICSEARCH:URI"];
+            var indexFormat = configuration["ELASTICSEARCH:INDEXFORMAT"] ?? "mi-indice-logs-{0:yyyy.MM}";
+
+            loggerConfiguration
+                 .Enrich.With(new PropertyFilterEnricher())
+                 .Enrich.With(new DefaultLogTypeEnricherProvider(serviceProvider))
+                 .Enrich.With(new TraceIdEnricher())
+                 .MinimumLevel.Information()
+                 .MinimumLevel.Override("Microsoft.AspNetCore.Hosting.Diagnostics", LogEventLevel.Warning)
+                 .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                 .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
+                 .MinimumLevel.Override("Microsoft.AspNetCore.Server.Kestrel", LogEventLevel.Warning)
+                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                 .MinimumLevel.Override("System", LogEventLevel.Warning)
+                 .WriteTo.Async(a => a.Console(
+                     new ElasticsearchJsonFormatter(
+                         inlineFields: true,
+                         renderMessage: false,
+                         renderMessageTemplate: false)),
+                         bufferSize: 10);
+
+            if (!string.IsNullOrEmpty(elasticsearchUri))
+            {
+                loggerConfiguration.WriteTo.Async(a => a.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearchUri))
+                {
+                    AutoRegisterTemplate = true,
+                    InlineFields = true,
+                    IndexFormat = indexFormat,
+                }));
+            }
+
+
+
+            return loggerConfiguration;
+        }
     }
 }
+
