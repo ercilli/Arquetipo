@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ErrorHandling.Abstracts;
 using Microsoft.AspNetCore.Http;
 using ResponseGenerator.Models.ResponseGeneratorModels;
+using System.Collections.Generic; // Necesario para trabajar con List<T>
 
 namespace ErrorHandling.Pom
 {
@@ -20,24 +22,34 @@ namespace ErrorHandling.Pom
             {
                 Console.WriteLine("Ingreso a PomDefaultExtensionHandler");
 
-                _model.Errors = new BaseErrorPomModel() { spects = "esto es el errorHandling del pom"};
+                // Asegurarse de que la lista de errores está inicializada
+                if (_model.ListErrors == null)
+                {
+                    _model.ListErrors = new List<BaseErrorModel>();
+                }
 
-                _model.Errors.description = "Error del pom";
+                // Crear y configurar el nuevo error
+                var error = new BaseErrorPomModel()
+                {
+                    spects = "esto es el errorHandling del pom",
+                    description = "Error del pom"
+                };
+
+                // Agregar el nuevo error a la lista
+                _model.ListErrors.Add(error);
 
                 Console.WriteLine("Salgo de PomDefaultExtensionHandler");
-
-
             }
             catch (Exception exe)
             {
                 Console.WriteLine(exe);
             }
-
         }
+
         protected override Task FillErrorAditionalAsync(Exception ex, HttpContext httpContext)
         {
+            // Implementación asincrónica si es necesario
             throw new NotImplementedException();
         }
     }
 }
-
