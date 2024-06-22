@@ -1,12 +1,16 @@
 ﻿using System;
 
-namespace Exceptions.Core
+namespace GlobalExceptionHandler.Base
 {
 	public class BaseException : Exception
     {
-		public BaseException()
-		{
-		}
-	}
+        public BaseException() { }
+
+        public BaseException(string message)
+            : base(message) { }
+
+        public BaseException(string message, Exception innerException)
+            : base(message, innerException) { }
+    }
 }
 
