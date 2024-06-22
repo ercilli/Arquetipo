@@ -22,12 +22,6 @@ namespace ErrorHandling.Pom
             {
                 Console.WriteLine("Ingreso a PomDefaultExtensionHandler");
 
-                // Asegurarse de que la lista de errores está inicializada
-                if (_model.ListErrors == null)
-                {
-                    _model.ListErrors = new List<BaseErrorModel>();
-                }
-
                 // Crear y configurar el nuevo error
                 var error = new BaseErrorPomModel()
                 {
