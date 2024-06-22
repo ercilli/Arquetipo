@@ -1,11 +1,21 @@
 ﻿using System;
-namespace Architectural.Exception.Core.FunctionalExceptions
+using GlobalExceptionHandler.Base;
+
+namespace GlobalExceptionHandler.Functional.Validation
 {
-	public class ValidationException
-	{
-		public ValidationException()
-		{
-		}
-	}
+    public class ValidationException : BaseException
+    {
+        public ValidationException()
+        {
+        }
+
+        public ValidationException(string message) : base(message)
+        {
+        }
+
+        public ValidationException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+    }
 }
 
