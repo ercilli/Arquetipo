@@ -1,11 +1,21 @@
 ﻿using System;
-namespace Architectural.Exception.Core.SecurityExceptions
+using GlobalExceptionHandler.Base;
+
+namespace GlobalExceptionHandler.Security.Authentication
 {
-	public class AuthenticationException
-	{
-		public AuthenticationException()
-		{
-		}
-	}
+    public class AuthenticationException : BaseException
+    {
+        public AuthenticationException()
+        {
+        }
+
+        public AuthenticationException(string message) : base(message)
+        {
+        }
+
+        public AuthenticationException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+    }
 }
 
