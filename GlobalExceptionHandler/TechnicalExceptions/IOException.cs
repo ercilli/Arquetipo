@@ -1,11 +1,21 @@
 ﻿using System;
-namespace Architectural.Exception.Core.TechnicalExceptions
+using GlobalExceptionHandler.Base;
+
+namespace GlobalExceptionHandler.Technical.IO
 {
-	public class IOException
-	{
-		public IOException()
-		{
-		}
-	}
+    public class IOException : BaseException
+    {
+        public IOException()
+        {
+        }
+
+        public IOException(string message) : base(message)
+        {
+        }
+
+        public IOException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+    }
 }
 
