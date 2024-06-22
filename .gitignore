@@ -17,12 +17,16 @@ Logging.Configuration.Pom/bin
 Logging.Configuration.Pom/obj
 Logging.Filter/bin
 Logging.Filter/obj
+Logging.LogMinimazer/bin
+Logging.LogMinimazer/obj
 Logging.Filter.Pom/bin
 Logging.Filter.Pom/obj
 Logging.Interceptor/bin
 Logging.Interceptor/obj
 Logging.Interceptor.Pom/bin
 Logging.Interceptor.Pom/obj
+GlobalExceptionHandler/bin
+GlobalExceptionHandler/obj
 Logging.Models/bin
 Logging.Models/obj
 Tracing.Configuration/bin
