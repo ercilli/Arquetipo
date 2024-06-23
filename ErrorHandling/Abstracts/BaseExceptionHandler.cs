@@ -9,6 +9,7 @@ using ErrorHandling.Interfaces;
 using GlobalExceptionHandler;
 using GlobalExceptionHandler.Technical.Database;
 using GlobalExceptionHandler.Functional.Business;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace ErrorHandling.Abstracts
 {
@@ -88,10 +89,10 @@ namespace ErrorHandling.Abstracts
         {
             var error = new BaseErrorModel
             {
-                code = context.Response.StatusCode.ToString(),
+                status_code = context.Response.StatusCode.ToString(),
+                code = ReasonPhrases.GetReasonPhrase(context.Response.StatusCode),
                 detail = exception.Message ?? defaultMessage,
                 trace = FilterStackTrace(exception.StackTrace),
-                // Agregar más campos según sea necesario
             };
 
             _model.ListErrors.Add(error);
