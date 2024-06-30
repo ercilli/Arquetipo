@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using Microsoft.AspNetCore.Http;
 using ResponseGenerator.Models.ResponseGeneratorModels;
 using ErrorHandling.Interfaces;
-using GlobalExceptionHandler;
 using GlobalExceptionHandler.Technical.Database;
 using GlobalExceptionHandler.Functional.Business;
 using Microsoft.AspNetCore.WebUtilities;
