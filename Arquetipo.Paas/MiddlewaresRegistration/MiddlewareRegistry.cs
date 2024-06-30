@@ -1,5 +1,7 @@
 ﻿using Arquetipo.Paas.Enums;
+using Cors.Configuration.Extensions;
 using ErrorHandling.Middleware;
+using Healthcheck.Configuration.Extensions;
 using Logging.Filter.Middlewares;
 using ResponseGenerator.Middlewares;
 
