@@ -26,5 +26,9 @@
     <ProjectReference Include="..\Logging.Interceptor\Logging.Interceptor.csproj" />
     <ProjectReference Include="..\Tracing.Configuration\Tracing.Configuration.csproj" />
     <ProjectReference Include="..\ResponseGenerator\ResponseGenerator.csproj" />
+    <ProjectReference Include="..\Cors.Configuration\Cors.Configuration.csproj" />
+    <ProjectReference Include="..\Healthcheck.Configuration\Healthcheck.Configuration.csproj" />
+    <ProjectReference Include="..\Swagger.Configuration\Swagger.Configuration.csproj" />
+    <ProjectReference Include="..\GlobalExceptionHandler\GlobalExceptionHandler.csproj" />
   </ItemGroup>
 </Project>
