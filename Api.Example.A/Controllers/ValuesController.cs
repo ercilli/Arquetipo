@@ -51,6 +51,13 @@ namespace Api.Example.A.Controllers
         {
             throw new Exception("Se realiza una excepcion de prueba");
         }
+
+        // GET: api/values
+        [HttpGet("error1")]
+        public async Task<IActionResult> Get3()
+        {
+            throw new Exception("Se realiza una excepcion de prueba");
+        }
     }
 }
 
