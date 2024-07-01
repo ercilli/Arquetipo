@@ -1,6 +1,8 @@
 .vs/
 Api.Example.A/bin
 Api.Example.A/obj
+Api.Example.A.Test/bin
+Api.Example.A.Test/obj
 Arquetipo.Paas/bin
 Arquetipo.Paas/obj
 Arquetipo.Pom/bin
