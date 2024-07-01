@@ -22,5 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ResponseGenerator.Models\ResponseGenerator.Models.csproj" />
+    <ProjectReference Include="..\Logging.Models\Logging.Models.csproj" />
   </ItemGroup>
 </Project>
