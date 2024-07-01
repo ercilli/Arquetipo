@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Logging.Models.LoggingModels;
 using Microsoft.AspNetCore.Http;
 using ResponseGenerator.Models.ResponseGeneratorModels;
 
@@ -13,11 +14,13 @@ namespace ResponseGenerator.Middlewares
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, ResponseApi responseApi)
+        public async Task InvokeAsync(HttpContext context, ResponseApi responseApi, ResponseLoggingModel model)
         {
             Console.WriteLine("Ingreso al middleware ResponseGenerator");
 
             await _next(context);
+
+            responseApi.Data = model.HttpResponseBody;
 
             await context.Response.WriteAsync(JsonSerializer.Serialize(responseApi));
 
