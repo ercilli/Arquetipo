@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthcheck.Configuration",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cors.Configuration", "Cors.Configuration\Cors.Configuration.csproj", "{C07DEFE7-D931-4DDF-84D7-097AADACED69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Example.A.Test", "Api.Example.A.Test\Api.Example.A.Test.csproj", "{22031037-ADA9-4CEE-93B4-6CA5384A7B4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{C07DEFE7-D931-4DDF-84D7-097AADACED69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C07DEFE7-D931-4DDF-84D7-097AADACED69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C07DEFE7-D931-4DDF-84D7-097AADACED69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22031037-ADA9-4CEE-93B4-6CA5384A7B4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22031037-ADA9-4CEE-93B4-6CA5384A7B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22031037-ADA9-4CEE-93B4-6CA5384A7B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22031037-ADA9-4CEE-93B4-6CA5384A7B4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
