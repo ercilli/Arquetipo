@@ -16,7 +16,7 @@ namespace Logging.Filter.Pom
             _logger = logger;
         }
 
-        public async Task InvokeAsync(HttpContext context, IRequestInspection _inspect)
+        public async Task InvokeAsync(HttpContext context)
         {
             _logger.LogInformation("Ingreso al middleware Filter POM");
             Console.WriteLine("Ingreso al middleware Filter POM");
