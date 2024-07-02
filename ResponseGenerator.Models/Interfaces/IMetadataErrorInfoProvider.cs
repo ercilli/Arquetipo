@@ -1,4 +1,3 @@
-// IMetadataErrorInfoProvider.cs
 namespace ResponseGenerator.Models.Interfaces
 {
     public interface IMetadataErrorInfoProvider
