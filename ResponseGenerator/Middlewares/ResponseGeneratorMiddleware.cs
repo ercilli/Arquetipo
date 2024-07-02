@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using Logging.Models.LoggingModels;
 using Microsoft.AspNetCore.Http;
 using ResponseGenerator.Models.ResponseGeneratorModels;
 
@@ -14,7 +13,7 @@ namespace ResponseGenerator.Middlewares
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, ResponseApi responseApi, ResponseLoggingModel model)
+        public async Task InvokeAsync(HttpContext context, IResponseBuilder responseBuilder)
         {
             await _next(context);
 
@@ -25,13 +24,10 @@ namespace ResponseGenerator.Middlewares
                 return;
             }
 
-            // Si el código de estado no es 204, procede como normalmente
-            // Verifica si model.HttpResponseBody es "-", asigna null a responseApi.Data; de lo contrario, asigna el valor de model.HttpResponseBody
-            responseApi.Data = model.HttpResponseBody == "-" ? null : model.HttpResponseBody;
-
-            responseApi.Meta = new Meta() { method = context.Request.Method, operation = context.Request.Path };
-
-            await context.Response.WriteAsync(JsonSerializer.Serialize(responseApi));
+            if (context.Items.TryGetValue("hadException", out var valor))
+            {
+                await context.Response.WriteAsync(JsonSerializer.Serialize(responseBuilder.BuildResponse()));
+            }
         }
     }
 }
