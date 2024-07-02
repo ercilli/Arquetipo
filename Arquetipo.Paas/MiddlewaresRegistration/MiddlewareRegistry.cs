@@ -68,8 +68,8 @@ public class MiddlewareRegistry
                 BaseMiddleware.RequestLogger => typeof(RequestLoggerMiddleware),
                 BaseMiddleware.ResponseLogger => typeof(ResponseLoggerMiddleware),
                 BaseMiddleware.ResponseGenerator => typeof(ResponseGeneratorMiddleware),
-                BaseMiddleware.ErrorHandling => typeof(ErrorHandlingMiddleware),
                 BaseMiddleware.ResponseInspection => typeof(ResponseInspectionMiddleware),
+                BaseMiddleware.ErrorHandling => typeof(ErrorHandlingMiddleware),
                 _ => throw new ArgumentException("Unknown middleware")
             };
 
