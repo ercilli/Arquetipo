@@ -20,8 +20,6 @@ namespace ErrorHandling.Pom
         {
             try
             {
-                Console.WriteLine("Ingreso a PomDefaultExtensionHandler");
-
                 // Crear y configurar el nuevo error
                 var error = new BaseErrorPomModel()
                 {
@@ -32,7 +30,6 @@ namespace ErrorHandling.Pom
                 // Agregar el nuevo error a la lista
                 _model.ListErrors.Add(error);
 
-                Console.WriteLine("Salgo de PomDefaultExtensionHandler");
             }
             catch (Exception exe)
             {
