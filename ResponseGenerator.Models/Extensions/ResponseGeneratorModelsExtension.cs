@@ -10,6 +10,7 @@ namespace ResponseGenerator.Models.Extensions
             services.AddScoped<ResponseApi>();
             services.AddScoped<Meta>();
             services.AddScoped<BaseErrorModel>();
+            services.AddScoped<IResponseBuilder, ResponseBuilder>();
 
             return services;
         }
