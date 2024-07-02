@@ -37,6 +37,7 @@ public class ResponseInspectionMiddleware
             {
                 // Manejo de excepciones locales si es necesario
                 context.Response.Body = originalBodyStream;
+
                 throw; // Re-lanzar la excepción para que otros middlewares la manejen
             }
             finally
