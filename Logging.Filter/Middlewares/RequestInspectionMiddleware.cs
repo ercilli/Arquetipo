@@ -16,11 +16,11 @@ namespace Logging.Filter.Middlewares
 
         public async Task InvokeAsync(HttpContext context, IRequestInspection _inspect)
         {
-            Console.WriteLine("Ingreso al middleware RequestInspection");
             var httpcontext = context;
+
             await _inspect.RequestExtractAsync();
+
             await _next(context);
-            Console.WriteLine("Salgo del middleware RequestInspection");
         }
     }
 }
