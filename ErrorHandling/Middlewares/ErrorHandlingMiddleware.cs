@@ -23,6 +23,7 @@ namespace ErrorHandling.Middleware
             catch (Exception ex)
             {
                 await _exceptionHandler.HandleExceptionAsync(ex, context);
+                context.Items["hadException"] = true;
             }
         }
     }
