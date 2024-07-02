@@ -9,9 +9,9 @@ namespace ResponseGenerator.Models.ResponseGeneratorModels
 		public Meta Meta { get; set; } = new Meta();
 
 		[JsonPropertyName("data")]
-		public string Data { get; set; }
+		public object Data { get; set; }
 
 		[JsonPropertyName("errors")]
-		public List<BaseErrorModel> ListErrors { get; set; } = new List<BaseErrorModel>();
-	}
+        public List<BaseErrorModel> ListErrors { get; set; } = new List<BaseErrorModel>();
+    }
 }
