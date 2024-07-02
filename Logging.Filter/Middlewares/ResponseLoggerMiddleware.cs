@@ -15,10 +15,9 @@ namespace Logging.Filter.Middlewares
 
         public async Task InvokeAsync(HttpContext context, IResponseLogger _responseLogger)
         {
-            Console.WriteLine("Ingreso al middleware ResponseLogger");
             await _next(context);
+
             await _responseLogger.LogResponseAsync();
-            Console.WriteLine("Salgo del middleware ResponseLogger");
         }
     }
 }
