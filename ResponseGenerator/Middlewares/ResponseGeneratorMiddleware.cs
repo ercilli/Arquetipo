@@ -16,15 +16,21 @@ namespace ResponseGenerator.Middlewares
 
         public async Task InvokeAsync(HttpContext context, ResponseApi responseApi, ResponseLoggingModel model)
         {
-            Console.WriteLine("Ingreso al middleware ResponseGenerator");
-
             await _next(context);
 
+            // Verifica si el código de estado de la respuesta es 204 (No Content)
+            if (context.Response.StatusCode == 204)
+            {
+                // Si es 204, no intentes escribir en el cuerpo de la respuesta y termina la ejecución del middleware
+                return;
+            }
+
+            // Si el código de estado no es 204, procede como normalmente
             responseApi.Data = model.HttpResponseBody;
 
-            await context.Response.WriteAsync(JsonSerializer.Serialize(responseApi));
+            responseApi.Meta = new Meta() { method = context.Request.Method, operation = context.Request.Path };
 
-            Console.WriteLine("Salgo del middleware ResponseGenerator");
+            await context.Response.WriteAsync(JsonSerializer.Serialize(responseApi));
         }
     }
 }
