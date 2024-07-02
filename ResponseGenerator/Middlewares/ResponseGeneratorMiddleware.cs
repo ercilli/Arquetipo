@@ -26,7 +26,8 @@ namespace ResponseGenerator.Middlewares
             }
 
             // Si el código de estado no es 204, procede como normalmente
-            responseApi.Data = model.HttpResponseBody;
+            // Verifica si model.HttpResponseBody es "-", asigna null a responseApi.Data; de lo contrario, asigna el valor de model.HttpResponseBody
+            responseApi.Data = model.HttpResponseBody == "-" ? null : model.HttpResponseBody;
 
             responseApi.Meta = new Meta() { method = context.Request.Method, operation = context.Request.Path };
 
