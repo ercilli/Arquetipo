@@ -12,11 +12,13 @@ namespace Logging.Filter.Services
 	{
         private readonly ResponseLoggingModel _model;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IResponseBuilder _builder;
 
-        public ResponseInspection(ResponseLoggingModel model, IHttpContextAccessor contextAccessor)
+        public ResponseInspection(ResponseLoggingModel model, IHttpContextAccessor contextAccessor, IResponseBuilder builder)
         {
             _model = model;
             _contextAccessor = contextAccessor;
+            _builder = builder;
         }
 
         public async Task ResponseExtractAsync(string body)
@@ -26,7 +28,17 @@ namespace Logging.Filter.Services
             _model.LogType = "RESPONSE";
             _model.HttpResponseStatusCode = $"{context?.Response.StatusCode}";
             _model.HttpResponseStatusPhrase = $"{ReasonPhrases.GetReasonPhrase(context.Response.StatusCode)}";
-            _model.HttpResponseBody = body;
+
+            if (context.Items.TryGetValue("hadException", out var valor))
+            {
+                _model.HttpResponseBody = JsonSerializer.Serialize(_builder.BuildResponse());
+
+            }
+            else
+            {
+                _model.HttpResponseBody = body;
+            }
+
             _model.HttpResponseHeaders = GetAllResponseHeaders(context);
             _model.HttpDuration = "-";
         }
