@@ -30,7 +30,7 @@ public class ResponseInspectionMiddleware
 
                 context.Response.Body.Seek(0, SeekOrigin.Begin);
 
-                context.Response.Body = originalBodyStream;
+                await responseBody.CopyToAsync(originalBodyStream);
 
             }
             catch (Exception ex)
