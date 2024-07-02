@@ -10,9 +10,9 @@ namespace ErrorHandling.Abstracts
 {
     public abstract class BaseExceptionHandler : IExceptionHandler
     {
-        protected readonly ResponseApi _model;
+        protected readonly IResponseBuilder _model;
 
-        protected BaseExceptionHandler(ResponseApi model)
+        protected BaseExceptionHandler(IResponseBuilder model)
         {
             _model = model;
         }
@@ -80,7 +80,7 @@ namespace ErrorHandling.Abstracts
                         .WithTrace(FilterStackTrace(exception.StackTrace))
                         .Build();
 
-            _model.ListErrors.Add(error);
+            _model.AddError(error);
         }
 
         private string FilterStackTrace(string stackTrace)
