@@ -28,5 +28,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logging.Models\Logging.Models.csproj" />
+    <ProjectReference Include="..\ResponseGenerator.Models\ResponseGenerator.Models.csproj" />
   </ItemGroup>
 </Project>
