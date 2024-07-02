@@ -6,9 +6,9 @@ namespace ErrorHandling.Pom
 {
     public class PomDefaultExtensionHandler : BaseExceptionHandler
     {
-        private readonly ResponseApi _model;
+        private readonly IResponseBuilder _model;
 
-        public PomDefaultExtensionHandler(ResponseApi model) : base(model)
+        public PomDefaultExtensionHandler(IResponseBuilder model) : base(model)
         {
             _model = model;
         }
@@ -25,7 +25,7 @@ namespace ErrorHandling.Pom
                 };
 
                 // Agregar el nuevo error a la lista
-                _model.ListErrors.Add(error);
+                _model.AddError(error);
 
             }
             catch (Exception exe)
