@@ -25,29 +25,20 @@ namespace ErrorHandling.Abstracts
 
         private void FillError(Exception ex, HttpContext context)
         {
-            var errors = new List<BaseErrorModel>();
-            var currentException = ex;
+            context.Response.ContentType = "application/json";
 
-            while (currentException != null)
+            while (ex != null)
             {
                 // Llamada a CategorizeAndHandleExceptionAsync para determinar el tipo de excepción
-                CategorizeAndHandleException(currentException, context);
+                CategorizeAndHandleException(ex, context);
 
-                currentException = currentException.InnerException;
+                ex = ex.InnerException;
             }
 
-            errors.Reverse();
-
-            foreach (var error in errors)
-            {
-                _model.ListErrors.Add(error);
-            }
         }
 
         protected void CategorizeAndHandleException(Exception exception, HttpContext context)
         {
-            context.Response.ContentType = "application/json";
-
             switch (exception)
             {
                 case DatabaseException dbException:
@@ -82,13 +73,12 @@ namespace ErrorHandling.Abstracts
 
         private void AddErrorToModel(Exception exception, HttpContext context, string defaultMessage)
         {
-            var error = new BaseErrorModel
-            {
-                status_code = context.Response.StatusCode.ToString(),
-                code = ReasonPhrases.GetReasonPhrase(context.Response.StatusCode),
-                detail = exception.Message ?? defaultMessage,
-                trace = FilterStackTrace(exception.StackTrace),
-            };
+            var error = new BaseErrorModelBuilder()
+                        .WithStatusCode(context.Response.StatusCode.ToString())
+                        .WithCode(ReasonPhrases.GetReasonPhrase(context.Response.StatusCode))
+                        .WithDetail(exception.Message ?? defaultMessage)
+                        .WithTrace(FilterStackTrace(exception.StackTrace))
+                        .Build();
 
             _model.ListErrors.Add(error);
         }
