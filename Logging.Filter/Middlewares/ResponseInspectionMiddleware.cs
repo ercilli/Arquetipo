@@ -12,8 +12,6 @@ public class ResponseInspectionMiddleware
 
     public async Task InvokeAsync(HttpContext context, IResponseInspection _inspect)
     {
-        Console.WriteLine("Ingreso al middleware ResponseInspection");
-
         var originalBodyStream = context.Response.Body;
 
         using (var responseBody = new MemoryStream())
@@ -25,12 +23,15 @@ public class ResponseInspectionMiddleware
                 await _next(context);
 
                 context.Response.Body.Seek(0, SeekOrigin.Begin);
+
                 var body = await new StreamReader(context.Response.Body).ReadToEndAsync();
-                context.Response.Body.Seek(0, SeekOrigin.Begin);
 
                 await _inspect.ResponseExtractAsync(body);
 
-                await responseBody.CopyToAsync(originalBodyStream);
+                context.Response.Body.Seek(0, SeekOrigin.Begin);
+
+                context.Response.Body = originalBodyStream;
+
             }
             catch (Exception ex)
             {
@@ -42,8 +43,6 @@ public class ResponseInspectionMiddleware
             {
                 context.Response.Body = originalBodyStream;
             }
-
-            Console.WriteLine("Salgo del middleware ResponseInspection");
         }
     }
 }
