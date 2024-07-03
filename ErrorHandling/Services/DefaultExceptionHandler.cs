@@ -6,9 +6,9 @@ namespace ErrorHandling.Services
 {
     public class DefaultExceptionHandler : BaseExceptionHandler
     {
-        private readonly ResponseApi _model;
+        private readonly IResponseBuilder _model;
 
-        public DefaultExceptionHandler(ResponseApi model) : base(model)
+        public DefaultExceptionHandler(IResponseBuilder model) : base(model)
         {
             _model = model;
         }
