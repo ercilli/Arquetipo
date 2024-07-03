@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  api-example-a:
+    build: /Users/eric.tarelli/Projects/Arquetipo # Assuming the Dockerfile is in the root of your project directory
+    ports:
+      - "81:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ELASTICSEARCH__URI: http://localhost:9200
+      ELASTICSEARCH__INDEXFORMAT: "api-example-a-{0:yyyy.MM}"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.7'
+          memory: 640M
+        reservations:
+          cpus: '0.02'
+          memory: 128M
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - elasticnet
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.10.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - elasticnet
+
+volumes:
+  elasticsearch-data:
+
+networks:
+  elasticnet:
+    driver: bridge
